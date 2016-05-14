@@ -100,6 +100,7 @@ CRF_Model::FunctionGradientWrapper(const vector<double> & x, vector<double> & gr
 int
 CRF_Model::perform_BFGS()
 {
+  return 0;
   /*
   pointer_to_working_object = this;
 
