@@ -12,6 +12,14 @@ For full instructions, see `README`. The CLTK's Latin model (based on Perseus tr
 $ ./lapos-learn -m ./model latin_training_set.pos
 ```
 
+For running, use `echo` to pass one sentence at a time:
+
+``` shell
+$ > echo "He opened the window." | ./lapos -t -m ./model_wsj02-21
+He/PRP opened/VBD the/DT window/NN ./.
+```
+
+
 # Changes
 
 To compile on Clang, a few changes need to be made, namely removing `tr1` from, e.g., (`<tr1/unordered_map>` and `td::tr1::unordered_map`).
