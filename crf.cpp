@@ -16,7 +16,7 @@ extern bool USE_EDGE_TRIGRAMS;
 const string BOS_LABEL = "!BOS!";
 const string EOS_LABEL = "!EOS!";
 //const bool USE_BOS_EOS = true;  // need to fix load_from_file(). BOE and EOS should be put first.
-const bool USE_BOS_EOS = false;  
+const bool USE_BOS_EOS = false;
 
 const bool OUTPUT_MARGINAL_PROB = true;
 
@@ -26,7 +26,7 @@ extern int push_stop_watch();
 
 static CRF_Model * pointer_to_working_object = NULL; // this is not a good solution...
 
-CRF_Model::CRF_Model() 
+CRF_Model::CRF_Model()
 {
     _nheldout = 0;
     _early_stopping_n = 0;
@@ -46,8 +46,8 @@ CRF_Model::CRF_Model()
     p_backward_pointer = (int*)malloc(sizeof(int) * MAX_LEN * MAX_LABEL_TYPES);
 
 }
- 
-CRF_Model::~CRF_Model() 
+
+CRF_Model::~CRF_Model()
 {
     if (USE_EDGE_TRIGRAMS) {
       free(p_edge_feature_id3);
@@ -414,7 +414,7 @@ double CRF_Model::nbest(const Sequence & seq, vector<Path> & vp,
     vp.clear();
     nbest_search(max(lb, min_prob), len, len, 0, 1.0, vp);
     //    double sum = 0;
-    //    for (vector<Path>::const_iterator i = vp.begin(); i != vp.end(); i++) 
+    //    for (vector<Path>::const_iterator i = vp.begin(); i != vp.end(); i++)
     //      sum += i->score;
     //    if (abs(sum - 1.0) < 0.000000001) break;
     if (iter++ > 1000) break;
@@ -444,7 +444,7 @@ double CRF_Model::calc_likelihood(const Sequence & seq, double fp)
   }
   p *= edge_weight[_num_classes][seq.vs[0].label];       // BOS
   p *= edge_weight[seq.vs[len-1].label][_num_classes+1]; // EOS
-  
+
   //  p /= fp;
   //    cout << "p = " << p << endl;
   assert(p > 0);
@@ -466,7 +466,7 @@ double CRF_Model::calc_loglikelihood(const Sequence & seq)
   }
   logp += log(edge_weight(_num_classes, seq.vs[0].label));       // BOS
   logp += log(edge_weight(seq.vs[len-1].label,_num_classes+1)); // EOS
-  
+
   return logp;
 }
 
@@ -476,8 +476,8 @@ CRF_Model::make_feature_bag(const int cutoff)
 {
 #ifdef USE_HASH_MAP
   //  typedef __gnu_cxx::hash_map<mefeature_type, int> map_type;
-  typedef std::tr1::unordered_map<mefeature_type, int> map_type;
-#else    
+  typedef std::unordered_map<mefeature_type, int> map_type;
+#else
   typedef std::map<mefeature_type, int> map_type;
 #endif
 
@@ -503,7 +503,7 @@ CRF_Model::make_feature_bag(const int cutoff)
   }
 
   init_feature2mef();
-  
+
   return 0;
 }
 
@@ -648,11 +648,11 @@ CRF_Model::update_model_expectation()
   for (int i = 0; i < _fb.Size(); i++) {
     _vme[i] /= _vs.size();
   }
-  
+
   _train_error = 1 - (double)ncorrect / total_len;
 
   logl /= _vs.size();
-  
+
   if (_sigma > 0) {
     const double c = 1/(2*_sigma*_sigma);
     for (int i = 0; i < _fb.Size(); i++) {
@@ -661,7 +661,7 @@ CRF_Model::update_model_expectation()
   }
 
   //logl /= _vs.size();
-  
+
   //  fprintf(stderr, "iter =%3d  logl = %10.7f  train_acc = %7.5f\n", iter, logl, (double)ncorrect/train.size());
   //  fprintf(stderr, "logl = %10.7f  train_acc = %7.5f\n", logl, (double)ncorrect/_train.size());
 
@@ -739,20 +739,20 @@ CRF_Model::train(const OptimizationMethod method, const int cutoff,
   _label_bag.Put(BOS_LABEL);
   _label_bag.Put(EOS_LABEL);
   _num_classes = _label_bag.Size() - 2;
-  
+
   for (int i = 0; i < _nheldout; i++) {
     _heldout.push_back(_vs.back());
     _vs.pop_back();
   }
-  
+
   int total_len = 0;
   for (size_t i = 0; i < _vs.size(); i++) total_len += _vs[i].vs.size();
-  
+
   //  _sigma = sqrt((double)total_len / Nsigma2);
   //  if (Nsigma2 == 0) _sigma = 0;
   _sigma = sigma;
   _inequality_width = widthfactor / _vs.size();
-  
+
   if (cutoff > 0) cerr << "cutoff threshold = " << cutoff << endl;
   //  if (_sigma > 0) cerr << "Gaussian prior sigma = " << _sigma << endl;
     //    cerr << "N*sigma^2 = " << Nsigma2 << " sigma = " << _sigma << endl;
@@ -778,7 +778,7 @@ CRF_Model::train(const OptimizationMethod method, const int cutoff,
   for (int i = 0; i < _vee.size(); i++) _vee[i] /= _vs.size();
 
   cerr << "done" << endl;
-  
+
   _vl.resize(_fb.Size());
   _vl.assign(_vl.size(), 0.0);
 
@@ -850,13 +850,13 @@ CRF_Model::load_from_file(const string & filename, bool verbose)
     float lambda;
     string w = line.substr(t2+1);
     sscanf(w.c_str(), "%f", &lambda);
-      
+
     const int label = _label_bag.Put(classname);
     const int feature = _featurename_bag.Put(featurename);
     _fb.Put(ME_Feature(label, feature));
     _vl.push_back(lambda);
   }
-  
+
   // for zero-wight edges
   _label_bag.Put(BOS_LABEL);
   _label_bag.Put(EOS_LABEL);
@@ -969,7 +969,7 @@ CRF_Model::init_feature2mef()
       }
     }
   }
-  
+
 
 }
 
@@ -1004,7 +1004,7 @@ CRF_Model::save_to_file(const string & filename, const double th) const
   return true;
 }
 
-void CRF_Model::decode_forward_backward(CRF_Sequence & s0, 
+void CRF_Model::decode_forward_backward(CRF_Sequence & s0,
 					vector< map<string, double> > & tagp)
 {
   if (s0.vs.size() >= MAX_LEN) {
@@ -1022,7 +1022,7 @@ void CRF_Model::decode_forward_backward(CRF_Sequence & s0,
     }
     seq.vs.push_back(s);
   }
-  
+
   tagp.clear();
   forward_backward(seq);
   for (size_t i = 0; i < seq.vs.size(); i++) {
@@ -1070,7 +1070,7 @@ void CRF_Model::decode_viterbi(CRF_Sequence & s0)
     }
     seq.vs.push_back(s);
   }
-  
+
   vector<int> vs(seq.vs.size());
   viterbi(seq, vs);
   for (size_t i = 0; i < seq.vs.size(); i++) {
@@ -1079,7 +1079,7 @@ void CRF_Model::decode_viterbi(CRF_Sequence & s0)
 }
 
 
-void 
+void
 CRF_Model::decode_nbest(CRF_Sequence & s0, vector<pair<double, vector<string> > > & sequences, const int num, const double min_prob)
 {
   //  num_tags = _num_classes;
@@ -1138,7 +1138,7 @@ CRF_Model::perform_AveragedPerceptron()
 
     for (int i = 0; i < dim; i++) wsum[i] += _vl[i] * _vs.size();
     iter++;
-      
+
     int error_num = 0;
     int rest = _vs.size();
     for (vector<Sequence>::const_iterator n = _vs.begin(); n != _vs.end(); n++, rest--) {
@@ -1177,7 +1177,7 @@ CRF_Model::perform_AveragedPerceptron()
 	X[eid0] += 1.0;
 	X[eid1] -= 1.0;
       }
-      
+
       double wX = 0, X2 = 0;
       for (map<int, double>::const_iterator i = X.begin(); i != X.end(); i++) {
 	wX += _vl[i->first] * i->second;
@@ -1219,7 +1219,7 @@ CRF_Model::perform_AveragedPerceptron()
     if (error_num == 0) break;
   }
 
-  for (int i = 0; i < dim; i++) { 
+  for (int i = 0; i < dim; i++) {
     _vl[i] = wsum[i] / (iter * _vs.size());
   }
 
@@ -1261,14 +1261,14 @@ pseudo_gradient(const vector<double> & x, const vector<double> & grad0, const do
 
 
 
-static void 
+static void
 l1ball_projection(vector<double> & v, const double z)
 {
   vector<double> v1 = v;
   for (int i = 0; i < v1.size(); i++) v1[i] = abs(v1[i]);
 
   sort(v1.begin(), v1.end());
-  
+
   int ro = 1;
   double sum = 0, rosum = 0;
   for (int j = 1; j <= v1.size(); j++) {
@@ -1295,7 +1295,7 @@ CRF_Model::perform_StochasticGradientDescent()
   const double L1_PSEUDO_GRADIENT = 0;
   //  const double L1_PSEUDO_GRADIENT = 0.00001;
   const int d = _fb.Size();
-  
+
   vector<int> ri(_vs.size());
   for (int i = 0; i < ri.size(); i++) ri[i] = i;
 
@@ -1350,7 +1350,7 @@ CRF_Model::perform_StochasticGradientDescent()
 	//	l1ball_projection(_vl, 500000);
 
 	// reset
-	k++; 
+	k++;
 	n = 0;
 	vme.assign(d, 0);
 	_vee.assign(_vee.size(), 0);
@@ -1372,4 +1372,3 @@ CRF_Model::perform_StochasticGradientDescent()
 /*
  * $Log$
  */
-
