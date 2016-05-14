@@ -80,8 +80,8 @@ class CRF_Model
   void set_heldout(const int h, const int n = 0) { _nheldout = h; _early_stopping_n = n; };
   //  bool load_from_array(const CRF_Model_Data data[]);
 
-  enum { MAX_LABEL_TYPES = 50 };
-  //  const static int MAX_LABEL_TYPES = 1000;
+  // enum { MAX_LABEL_TYPES = 50 };
+   const static int MAX_LABEL_TYPES = 10000;
   enum { MAX_LEN = 1000 };
 
   void incr_line_counter() { _line_counter++; }

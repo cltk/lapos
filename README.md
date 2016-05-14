@@ -8,6 +8,7 @@ The goal of this fork is to add Unicode support for use in the Classical Languag
 
 To compile on Clang, a few changes need to be made, namely removing `tr1` from, e.g., (`<tr1/unordered_map>` and `td::tr1::unordered_map`).
 
+We also increased the maximum number of tags, from 50 to 10000 (in `crf.h`, commenting out `enum { MAX_LABEL_TYPES = 50 };` and uncommenting `const static int MAX_LABEL_TYPES = 10000;`).
 
 # License
 Lapos created by Yoshimasa Tsuruoka, Yusuke Miyao, and Jun'ichi Kazama. For all technical details, see `README` and for license `LICENSE`.
