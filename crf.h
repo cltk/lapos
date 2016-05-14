@@ -81,7 +81,7 @@ class CRF_Model
   //  bool load_from_array(const CRF_Model_Data data[]);
 
   // enum { MAX_LABEL_TYPES = 50 };
-   const static int MAX_LABEL_TYPES = 10000;
+   const static int MAX_LABEL_TYPES = 2000;
   enum { MAX_LEN = 1000 };
 
   void incr_line_counter() { _line_counter++; }

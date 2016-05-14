@@ -684,10 +684,10 @@ CRF_Model::add_training_sample(const CRF_Sequence & seq)
     cerr << "error: sequence is too long.";
     exit(1);
   }
-  if (seq.vs.size() == 0) {
-    cerr << "warning: empty sentence" << endl;
-    return;
-  }
+  // if (seq.vs.size() == 0) {
+  //   cerr << "warning: empty sentence" << endl;
+  //   return;
+  // }
   assert(seq.vs.size() > 0);
 
   Sequence s1;
