@@ -2,6 +2,7 @@ lapos
 lapos-eval
 lapos-learn
 model
+*.la
 
 # Compiled Object files
 *.slo
