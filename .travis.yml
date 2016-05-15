@@ -1,7 +1,7 @@
 # Select OS
 os:
   - linux
-  - osx
+  # - osx
 
 # https://docs.travis-ci.com/user/osx-ci-environment/
 osx_image: xcode7.3
@@ -11,7 +11,7 @@ language: cpp
 
 # Compiler selection
 compiler:
-  - clang
+  # - clang
   - gcc
 
 # Build steps
