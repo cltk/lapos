@@ -1,3 +1,11 @@
+# Select OS
+os:
+  - linux
+  - osx
+
+# https://docs.travis-ci.com/user/osx-ci-environment/
+osx_image: xcode7.3
+
 # Enable C++ support
 language: cpp
 
