@@ -20,4 +20,4 @@ script:
   - mkdir model
   - ./lapos-learn -m ./model samples/train.pos
   - ./lapos -m ./model < samples/test.txt > tmp
-  # - ./lapos-eval samples/test.pos tmp samples/train.pos
+  - ./lapos-eval samples/test.pos tmp samples/train.pos
