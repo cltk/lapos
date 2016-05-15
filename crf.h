@@ -39,7 +39,7 @@ public:
   // to add a binary feature
   void add_feature(const std::string & f) {
     if (f.find_first_of('\t') != std::string::npos) { std::cerr << "error: illegal characters in a feature string" << std::endl; exit(1); }
-    features.push_back(f);   
+    features.push_back(f);
   }
 
 public:
@@ -61,7 +61,7 @@ public:
 class CRF_Model
 {
  public:
-  
+
   enum OptimizationMethod { BFGS, PERCEPTRON, SGD };
 
   void add_training_sample(const CRF_Sequence & s);
@@ -80,17 +80,17 @@ class CRF_Model
   void set_heldout(const int h, const int n = 0) { _nheldout = h; _early_stopping_n = n; };
   //  bool load_from_array(const CRF_Model_Data data[]);
 
-  enum { MAX_LABEL_TYPES = 50 };
-  //  const static int MAX_LABEL_TYPES = 1000;
+  // enum { MAX_LABEL_TYPES = 50 };
+  const static int MAX_LABEL_TYPES = 2000;
   enum { MAX_LEN = 1000 };
 
   void incr_line_counter() { _line_counter++; }
 
   CRF_Model();
   ~CRF_Model();
-      
-private:  
-  
+
+private:
+
   struct Sample {
     int label;
     std::vector<int> positive_features;
@@ -108,7 +108,7 @@ private:
     int label()   const { return _label; }
     int feature() const { return _feature; }
     //    mefeature_type body() const { return (((long)_feature) << 32) + _label; }
-    mefeature_type body() const { 
+    mefeature_type body() const {
       unsigned long a = _feature;
       return (a << 32) + _label;
     }
@@ -138,7 +138,7 @@ private:
 #ifdef USE_HASH_MAP
     //    typedef __gnu_cxx::hash_map<mefeature_type, int> map_type;
     typedef std::tr1::unordered_map<mefeature_type, int> map_type;
-#else    
+#else
     typedef std::map<mefeature_type, int> map_type;
 #endif
     map_type mef2id;
@@ -183,7 +183,7 @@ private:
       for (int i = 0; i < n; i++, p++) {
         //      v ^= *p;
 	v ^= *p << (4 * (i % 2)); // note) 0 <= char < 128  // bug??
-	//        v ^= *p << (i % 2); 
+	//        v ^= *p << (i % 2);
       }
       int m = s.size() % 4;
       for (int i = 0; i < m; i++) {
@@ -198,7 +198,7 @@ private:
 #ifdef USE_HASH_MAP
     //    typedef __gnu_cxx::hash_map<std::string, int, hashfun_str> map_type;
     typedef std::tr1::unordered_map<std::string, int, hashfun_str> map_type;
-#else    
+#else
     typedef std::map<std::string, int> map_type;
 #endif
     int _size;
@@ -309,30 +309,30 @@ private:
   int perform_StochasticGradientDescent();
   int perform_LookaheadTraining();
 
-  double lookahead_search(const Sequence & seq, 
+  double lookahead_search(const Sequence & seq,
 			  std::vector<int> & history,
 			  const int start,
-			  const int max_depth,  const int depth, 
+			  const int max_depth,  const int depth,
 			  double current_score,
 			  std::vector<int> & best_seq,
-			  const bool follow_gold = false, 
+			  const bool follow_gold = false,
 			  const std::vector<int> *forbidden_seq = NULL);
   void calc_diff(const double val,
-		 const Sequence & seq, 
-		 const int start, 
-		 const std::vector<int> & history, 
+		 const Sequence & seq,
+		 const int start,
+		 const std::vector<int> & history,
 		 const int depth, const int max_depth,
 		 std::map<int, double> & diff);
-  int update_weights_sub(const Sequence & seq, 
-			    std::vector<int> & history, 
+  int update_weights_sub(const Sequence & seq,
+			    std::vector<int> & history,
 			    const int x,
 			    std::map<int, double> & diff);
-  int update_weights_sub2(const Sequence & seq, 
-			    std::vector<int> & history, 
+  int update_weights_sub2(const Sequence & seq,
+			    std::vector<int> & history,
 			    const int x,
 			    std::map<int, double> & diff);
-  int update_weights_sub3(const Sequence & seq, 
-			    std::vector<int> & history, 
+  int update_weights_sub3(const Sequence & seq,
+			    std::vector<int> & history,
 			    const int x,
 			    std::map<int, double> & diff);
   int lookaheadtrain_sentence(const Sequence & seq, int & t, std::vector<double> & wa);
@@ -375,17 +375,17 @@ private:
         assert(x >= 0 && x < MAX_LABEL_TYPES);
         assert(y >= 0 && y < MAX_LABEL_TYPES);
         assert(z >= 0 && z < MAX_LABEL_TYPES);
-        return p_edge_feature_id3[w * MAX_LABEL_TYPES * MAX_LABEL_TYPES * MAX_LABEL_TYPES + x * MAX_LABEL_TYPES * MAX_LABEL_TYPES + y * MAX_LABEL_TYPES + z]; } 
+        return p_edge_feature_id3[w * MAX_LABEL_TYPES * MAX_LABEL_TYPES * MAX_LABEL_TYPES + x * MAX_LABEL_TYPES * MAX_LABEL_TYPES + y * MAX_LABEL_TYPES + z]; }
   int & edge_feature_id2(const int x, const int y, const int z) const
     { assert(x >= 0 && x < MAX_LABEL_TYPES);
       assert(y >= 0 && y < MAX_LABEL_TYPES);
       assert(z >= 0 && z < MAX_LABEL_TYPES);
       //      std::cout << x << " " << y << " " << z << std::endl;
-      return p_edge_feature_id2[x * MAX_LABEL_TYPES * MAX_LABEL_TYPES + y * MAX_LABEL_TYPES + z]; } 
+      return p_edge_feature_id2[x * MAX_LABEL_TYPES * MAX_LABEL_TYPES + y * MAX_LABEL_TYPES + z]; }
   int & edge_feature_id(const int l, const int r) const
     { assert(l >= 0 && l < MAX_LABEL_TYPES);
       assert(r >= 0 && r < MAX_LABEL_TYPES);
-      return p_edge_feature_id[l * MAX_LABEL_TYPES + r]; } 
+      return p_edge_feature_id[l * MAX_LABEL_TYPES + r]; }
   double & state_weight(const int x, const int l) const
     { return p_state_weight[x * MAX_LABEL_TYPES + l]; }
   double & edge_weight2(const int x, const int y, const int z) const
