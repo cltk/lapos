@@ -1,11 +1,14 @@
+# Select OS
+osx_image: xcode7.3
+
 # Enable C++ support
 language: cpp
 
 # Compiler selection
 compiler:
   - apple-gcc42
-  #- clang
-  #- gcc
+  - clang
+  - gcc
 
 # Build steps
 script:
