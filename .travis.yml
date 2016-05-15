@@ -1,4 +1,8 @@
 # Select OS
+os:
+  - linux
+  - osx
+
 osx_image: xcode7.3
 
 # Enable C++ support
