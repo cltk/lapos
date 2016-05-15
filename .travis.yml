@@ -1,6 +1,6 @@
 # Select OS
 os:
-  - linux
+  # - linux
   - osx
 
 # https://docs.travis-ci.com/user/osx-ci-environment/
@@ -11,9 +11,8 @@ language: cpp
 
 # Compiler selection
 compiler:
-  - apple-gcc42
   - clang
-  - gcc
+  # - gcc
 
 # Build steps
 script:
