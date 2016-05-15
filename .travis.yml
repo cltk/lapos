@@ -3,7 +3,8 @@ language: cpp
 
 # Compiler selection
 compiler:
-  - clang
+  - apple-gcc42
+  #- clang
   #- gcc
 
 # Build steps
