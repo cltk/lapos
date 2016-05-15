@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cltk/lapos.svg?branch=master)](https://travis-ci.org/cltk/lapos)
+
 # About
 
 This is an un-official fork of the Lapos tagger, based on version 0.1.2. [Official source available here](http://www.logos.ic.i.u-tokyo.ac.jp/~tsuruoka/lapos/).
