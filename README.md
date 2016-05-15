@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cltk/lapos.svg?branch=apple)](https://travis-ci.org/cltk/lapos)
+
 # About
 
 This is an un-official fork of the Lapos tagger, based on version 0.1.2. [Official source available here](http://www.logos.ic.i.u-tokyo.ac.jp/~tsuruoka/lapos/).
@@ -15,7 +17,7 @@ $ ./lapos-learn -m ./model latin_training_set.pos
 For running, use `echo` to pass one sentence at a time:
 
 ``` shell
-$ > echo "He opened the window." | ./lapos -t -m ./model_wsj02-21
+$ > echo "He opened the window." | ./lapos -t -m ./model/perseus_latin.la
 He/PRP opened/VBD the/DT window/NN ./.
 ```
 
