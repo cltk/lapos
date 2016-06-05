@@ -17,7 +17,7 @@ $ ./lapos-learn -m ./model latin_training_set.pos
 For running, use `echo` to pass one sentence at a time:
 
 ``` shell
-$ > echo "He opened the window." | ./lapos -t -m ./model_wsj02-21
+$ echo "He opened the window." | ./lapos -t -m ./model_wsj02-21
 He/PRP opened/VBD the/DT window/NN ./.
 ```
 
