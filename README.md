@@ -6,6 +6,11 @@ This is an un-official fork of the Lapos tagger, based on version 0.1.2. [Offici
 
 The goal of this fork is to add Unicode support for use in the Classical Language Toolkit. Once fixed, the CLTK hopes that these changes will be merged upstream.
 
+
+# Build
+
+There are two branches, `master` being for Linux and `apple` being for Mac OS (some changes were made for Clang, see below).
+
 # Use
 
 For full instructions, see `README`. The CLTK's Latin model (based on Perseus treebanks) was made with the following command:
@@ -13,6 +18,8 @@ For full instructions, see `README`. The CLTK's Latin model (based on Perseus tr
 ``` shell
 $ ./lapos-learn -m ./model latin_training_set.pos
 ```
+
+Note: You can get this trainined set with `curl -O https://raw.githubusercontent.com/cltk/latin_treebank_perseus/master/latin_training_set.pos`.
 
 For running, use `echo` to pass one sentence at a time:
 
